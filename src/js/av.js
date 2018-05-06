@@ -11,5 +11,5 @@ var testObject = new TestObject();
 testObject.save({
     words: 'Hello World!'
 }).then(function(object) {
-    alert('LeanCloud Rocks!');
+
 })

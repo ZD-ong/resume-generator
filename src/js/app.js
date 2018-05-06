@@ -1,6 +1,8 @@
 var app = new Vue({
     el: '#app',
     data: {
+        loginVisible: false,
+        signUpVisible: false,
         resume: {
             name: '姓名',
             gender: '女',
@@ -14,26 +16,16 @@ var app = new Vue({
         onEdit(key,value){
             this.resume[key] = value
         },
-        onClicksave(){
+        onClickSave(){
             let currentUser = AV.User.current()
             if(!currentUser) {
                 this.showLogin()
             }else{
-                    this.saveResume()
-                }
-            // 声明类型
-            let User = AV.Object.extend('User')
-            // 新建对象
-            let user = new User()
-            // 设置名称
-            user.set('name','工作')
-            // 设置优先级
-            user.set('priority',1)
-            user.save().then(function (todo) {
-                console.log('objectId is ' + todo.id)
-            }, function (error) {
-                console.error(error)
-            })
+                this.saveResume()
+            }
+        },
+        saveResume(){
+
         }
     }
 })
