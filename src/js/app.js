@@ -61,6 +61,7 @@ var app = new Vue({
             user.setPassword(this.signUp.password)
             // 设置邮箱
             user.setEmail(this.signUp.email)
+            // 注册成功直接登录
             user.signUp().then((user) => {
                 alert('注册成功！')
                 user = user.toJSON()
@@ -68,6 +69,7 @@ var app = new Vue({
                     objectId: user.objectId,
                     email: user.email
                 }
+                // 关闭注册窗口
                 this.signUpVisible = false
             }, (error) => {
                 alert(error.rawMessage)
