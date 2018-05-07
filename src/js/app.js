@@ -63,6 +63,7 @@ var app = new Vue({
                     email: user.email
                 }
                 this.loginVisible = false
+                window.location.reload()
             }, (error) => {
                 if(error.code === 211){
                     alert('邮箱不存在')
@@ -131,6 +132,12 @@ var app = new Vue({
             }, (error) => {
                 // 异常处理
             });
+        },
+        addSkill(){
+            this.resume.skills.push({name: '请填写技能名称', description: '请填写技能描述'})
+        },
+        removeSkill(index){
+            this.resume.skills.splice(index, 1)
         }
     }
 })

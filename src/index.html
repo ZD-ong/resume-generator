@@ -35,7 +35,6 @@
     </aside>
     <main>
         <div class="resume">
-            {{resume}}
             <section class="profile">
                 <h1>
                     <editable-span :value="resume.name" @edit="onEdit('name',$event)"></editable-span>
@@ -60,7 +59,10 @@
                         <editable-span :value="skill.name" @edit="onEdit(`skills[${index}].name`,$event)" class="name">{{skill.name}}</editable-span>
                         <div class="description">
                             <editable-span :value="skill.description" @edit="onEdit(`skills[${index}].description`,$event)">{{skill.description}}</editable-span>
+                            <span class="remove" v-if="index >= 4" @click="removeSkill(index)">关闭</span>
                         </div>
+                    </li>
+                    <li @click="addSkill">
                     </li>
                 </ul>
             </section>

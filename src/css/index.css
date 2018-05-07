@@ -61,6 +61,15 @@ div[v-cloak] {
     overflow: auto;
 }
 
+.skils > ul > li {
+    position: relative;
+}
+.skils > ul > li .remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .button {
     padding: 3px 10px;
 }
