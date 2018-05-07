@@ -3,6 +3,7 @@ var app = new Vue({
     data: {
         loginVisible: false,
         signUpVisible: false,
+        shareVisible: false,
         currentUser: {
             objectId: '',
             email: ''
@@ -33,7 +34,8 @@ var app = new Vue({
         signUp: {
             email:'',
             password: ''
-        }
+        },
+        shareUrl: 'http://xxxxxxxx'
     },
     methods: {
         onEdit(key,value){
@@ -158,5 +160,6 @@ var app = new Vue({
 let currentUser = AV.User.current()
 if(currentUser){
     app.currentUser = currentUser.toJSON()
+    app.shareUrl = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
     app.getResume()
 }
