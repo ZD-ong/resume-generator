@@ -28,6 +28,11 @@ button {
         display: flex;
     }
 }
+div[v-cloak] {
+    display: none;
+}
+
+
 
 .page > aside {
     width: 200px;
