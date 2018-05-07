@@ -33,25 +33,30 @@ var app = new Vue({
                 }else if(error.code === 210){
                     alert('邮箱和密码不匹配')
                 }
-            });
+            })
+        },
+        onLogout(){
+            AV.User.logOut()
+            alert('注销成功！')
+            window.location.reload()
         },
         onSignUp(e){
             // 新建 AVUser 对象实例
             const user = new AV.User();
             // 设置用户名
-            user.setUsername(this.signUp.email);
+            user.setUsername(this.signUp.email)
             // 设置密码
-            user.setPassword(this.signUp.password);
+            user.setPassword(this.signUp.password)
             // 设置邮箱
-            user.setEmail(this.signUp.email);
+            user.setEmail(this.signUp.email)
             user.signUp().then(function (user) {
-                console.log(user);
+                console.log(user)
             }, function (error) {
             });
         },
         onClickSave(){
             let currentUser = AV.User.current()
-            console.log(currentUser);
+            console.log(currentUser)
             if(!currentUser) {
                 this.loginVisible = true
             }else{
@@ -61,11 +66,11 @@ var app = new Vue({
         saveResume(){
             let {id} = AV.User.current()
             // 第一个参数是 className，第二个参数是 objectId
-            let user = AV.Object.createWithoutData('User', id);
+            let user = AV.Object.createWithoutData('User', id)
             // 修改属性
-            user.set('resume', this.resume);
+            user.set('resume', this.resume)
             // 保存到云端
-            user.save();
+            user.save()
         }
     }
 })
