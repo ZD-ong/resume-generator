@@ -35,8 +35,8 @@
     </aside>
     <main>
         <div class="resume">
+            {{resume}}
             <section class="profile">
-                {{currentUser}}
                 <h1>
                     <editable-span :value="resume.name" @edit="onEdit('name',$event)"></editable-span>
                 </h1>
@@ -56,21 +56,11 @@
             <section class="skils">
                 <h2>技能</h2>
                 <ul>
-                    <li>
-                        <span class="name">Skill</span>
-                        <div class="description">What's your major</div>
-                    </li>
-                    <li>
-                        <span class="name">Skill</span>
-                        <div class="description">What's your major</div>
-                    </li>
-                    <li>
-                        <span class="name">Skill</span>
-                        <div class="description">What's your major</div>
-                    </li>
-                    <li>
-                        <span class="name">Skill</span>
-                        <div class="description">What's your major</div>
+                    <li v-for="skill,index in resume.skills">
+                        <editable-span :value="skill.name" @edit="onEdit(`skills[${index}].name`,$event)" class="name">{{skill.name}}</editable-span>
+                        <div class="description">
+                            <editable-span :value="skill.description" @edit="onEdit(`skills[${index}].description`,$event)">{{skill.description}}</editable-span>
+                        </div>
                     </li>
                 </ul>
             </section>

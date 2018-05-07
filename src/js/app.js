@@ -13,7 +13,13 @@ var app = new Vue({
             birthday: '1993年10月',
             jobTitle: '前端工程师',
             phone: '152xxxxxxxx',
-            email: 'example@example.com'
+            email: 'example@example.com',
+            skills: [
+                {name: '请填写技能名称', description: '请填写技能描述'},
+                {name: '请填写技能名称', description: '请填写技能描述'},
+                {name: '请填写技能名称', description: '请填写技能描述'},
+                {name: '请填写技能名称', description: '请填写技能描述'}
+            ]
         },
         login: {
             email: '',
@@ -26,7 +32,25 @@ var app = new Vue({
     },
     methods: {
         onEdit(key,value){
-            this.resume[key] = value
+            let regex = /\[(\d+)\]/g
+            key = key.replace(regex,(match, number)=> `.${number}`)
+            //key = skills.0.name
+            keys = key.split('.')
+            let result = this.resume
+            for(var i =0; i < keys.length; i++){
+                if(i === keys.length - 1){
+                    result[keys[i]] = value
+                }else {
+                    result = result[keys[i]]
+                }
+                // result = this.resume
+                // keys = ['skills', '0', 'name']
+                // i = 0 result === result['skills] === this.resume.skills
+                // i = 1 result === result['0'] === this.resume.skills.0
+                // i = 2 result === result['name'] === this.resume.skills.0.name
+                // result = this.resume.['skills']['0']['name']
+            }
+            result = value // this.resume.['skills']['0']['name'] = value
         },
         hasLogin(){
           return !!this.currentUser.objectId
@@ -102,7 +126,8 @@ var app = new Vue({
                 // 成功获得实例
 
                 let resume = user.toJSON().resume
-                this.resume = resume
+                // 逐个赋值
+                Object.assign(this.resume, resume)
             }, (error) => {
                 // 异常处理
             });
