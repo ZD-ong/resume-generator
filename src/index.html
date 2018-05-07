@@ -56,9 +56,9 @@
                 <h2>技能</h2>
                 <ul>
                     <li v-for="skill,index in resume.skills">
-                        <editable-span :value="skill.name" @edit="onEdit(`skills[${index}].name`,$event)" class="name">{{skill.name}}</editable-span>
+                        <editable-span :value="skill.name" @edit="onEdit(`skills[${index}].name`,$event)" class="name"></editable-span>
                         <div class="description">
-                            <editable-span :value="skill.description" @edit="onEdit(`skills[${index}].description`,$event)">{{skill.description}}</editable-span>
+                            <editable-span :value="skill.description" @edit="onEdit(`skills[${index}].description`,$event)"></editable-span>
                             <span class="remove" v-if="index >= 4" @click="removeSkill(index)">关闭</span>
                         </div>
                     </li>
@@ -69,54 +69,28 @@
             <section class="projects">
                 <h2>项目经历</h2>
                 <ol>
-                    <li>
+                    <li v-for="project,index in resume.projects">
                         <header>
                             <div class="start">
-                                <h3 class="name">项目名称</h3>
-                                <span class="link">GitHub链接</span>
+                                <h3 class="name">
+                                    <editable-span :value="project.name" @edit="onEdit(`projects[${index}].name`,$event)"></editable-span>
+                                </h3>
+                                <span class="link">
+                                    <editable-span :value="project.link" @edit="onEdit(`projects[${index}].link`,$event)"></editable-span>
+                                </span>
                             </div>
                             <div class="end">
-                                <span class="keywords">技术栈：JS/CSS</span>
+                                <span class="keywords">
+                                    <editable-span :value="project.keywords" @edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
+                                </span>
                             </div>
                         </header>
-                        <p class="description">怎么做的怎么做的怎么做的怎么做的怎么做的怎么做的</p>
+                        <p class="description">
+                            <editable-span :value="project.description" @edit="onEdit(`projects[${index}].description`,$event)"></editable-span>
+                        </p>
+                        <span class="remove" v-if="index >= 3" @click="removeProject(index)">关闭</span>
                     </li>
-                    <li>
-                        <header>
-                            <div class="start">
-                                <h3 class="name">项目名称</h3>
-                                <span class="link">GitHub链接</span>
-                            </div>
-                            <div class="end">
-                                <span class="keywords">技术栈：JS/CSS</span>
-                            </div>
-                        </header>
-                        <p class="description">怎么做的怎么做的怎么做的怎么做的怎么做的怎么做的</p>
-                    </li>
-                    <li>
-                        <header>
-                            <div class="start">
-                                <h3 class="name">项目名称</h3>
-                                <span class="link">GitHub链接</span>
-                            </div>
-                            <div class="end">
-                                <span class="keywords">技术栈：JS/CSS</span>
-                            </div>
-                        </header>
-                        <p class="description">怎么做的怎么做的怎么做的怎么做的怎么做的怎么做的</p>
-                    </li>
-                    <li>
-                        <header>
-                            <div class="start">
-                                <h3 class="name">项目名称</h3>
-                                <span class="link">GitHub链接</span>
-                            </div>
-                            <div class="end">
-                                <span class="keywords">技术栈：JS/CSS</span>
-                            </div>
-                        </header>
-                        <p class="description">怎么做的怎么做的怎么做的怎么做的怎么做的怎么做的</p>
-                    </li>
+                    <li @click="addProject">添加项目</li>
                 </ol>
             </section>
         </div>
