@@ -5,6 +5,9 @@ var app = new Vue({
         signUpVisible: false,
         shareVisible: false,
         previewUser: {objectId: undefined},
+        previewResume: {
+
+        },
         currentUser: {
             objectId: '',
             email: ''
@@ -36,7 +39,13 @@ var app = new Vue({
             email:'',
             password: ''
         },
-        shareUrl: 'http://xxxxxxxx'
+        shareUrl: 'http://xxxxxxxx',
+        mode: 'edit' //preview
+    },
+    computed: {
+        displayResume(){
+            return this.mode === 'preview' ? this.previewResume : this.resume
+        }
     },
     watch: {
         'currentUser.objectId': function(newValue,oldValue){
@@ -137,12 +146,13 @@ var app = new Vue({
         },
         getResume(user){
             var query = new AV.Query('User');
-            query.get(user.objectId).then((user) => {
+            return query.get(user.objectId).then((user) => {
                 // 成功获得实例
 
                 let resume = user.toJSON().resume
+                return resume
                 // 逐个赋值
-                Object.assign(this.resume, resume)
+                // Object.assign(this.resume, resume)
             }, (error) => {
                 // 异常处理
             });
@@ -164,18 +174,29 @@ var app = new Vue({
     }
 })
 
+
+// 获取当前用户
+let currentUser = AV.User.current()
+if(currentUser){
+    app.currentUser = currentUser.toJSON()
+    app.shareUrl = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
+    console.log('2:' + app.currentUser.objectId)
+    app.getResume(app.currentUser).then(resume => {
+        app.resume = resume
+    })
+
+}
+
+// 获取预览用户的id
 let search = location.search
 let regex = /user_id=([^&]+)/
 let matches = search.match(regex)
+let userId
 if(matches){
-    let userId = matches[1]
-    console.log(userId);
-}else{
-    let currentUser = AV.User.current()
-    if(currentUser){
-        app.currentUser = currentUser.toJSON()
-        app.shareUrl = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
-        app.getResume(app.currentUser)
-    }
+    userId = matches[1]
+    app.mode = 'preview'
+    console.log('1:' + userId)
+    app.getResume({objectId: userId}).then(resume => {
+        app.previewResume = resume
+    })
 }
-
