@@ -4,6 +4,7 @@ var app = new Vue({
         loginVisible: false,
         signUpVisible: false,
         shareVisible: false,
+        previewUser: {objectId: undefined},
         currentUser: {
             objectId: '',
             email: ''
@@ -36,6 +37,13 @@ var app = new Vue({
             password: ''
         },
         shareUrl: 'http://xxxxxxxx'
+    },
+    watch: {
+        'currentUser.objectId': function(newValue,oldValue){
+            if(newValue){
+                this.getResume(this.currentUser)
+            }
+        }
     },
     methods: {
         onEdit(key,value){
@@ -70,7 +78,6 @@ var app = new Vue({
                     email: user.email
                 }
                 this.loginVisible = false
-                window.location.reload()
             }, (error) => {
                 if(error.code === 211){
                     alert('邮箱不存在')
@@ -128,9 +135,9 @@ var app = new Vue({
                 alert('保存失败。。。')
             })
         },
-        getResume(){
+        getResume(user){
             var query = new AV.Query('User');
-            query.get(this.currentUser.objectId).then((user) => {
+            query.get(user.objectId).then((user) => {
                 // 成功获得实例
 
                 let resume = user.toJSON().resume
@@ -157,9 +164,18 @@ var app = new Vue({
     }
 })
 
-let currentUser = AV.User.current()
-if(currentUser){
-    app.currentUser = currentUser.toJSON()
-    app.shareUrl = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
-    app.getResume()
+let search = location.search
+let regex = /user_id=([^&]+)/
+let matches = search.match(regex)
+if(matches){
+    let userId = matches[1]
+    console.log(userId);
+}else{
+    let currentUser = AV.User.current()
+    if(currentUser){
+        app.currentUser = currentUser.toJSON()
+        app.shareUrl = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
+        app.getResume(app.currentUser)
+    }
 }
+
