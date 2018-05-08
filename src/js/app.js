@@ -4,6 +4,7 @@ var app = new Vue({
         loginVisible: false,
         signUpVisible: false,
         shareVisible: false,
+        skinPickerVisible: false,
         previewUser: {objectId: undefined},
         previewResume: {
 
@@ -40,7 +41,8 @@ var app = new Vue({
             password: ''
         },
         shareUrl: 'http://xxxxxxxx',
-        mode: 'edit' //preview
+        mode: 'edit', //preview
+        mainClass: 'default'
     },
     computed: {
         displayResume(){
@@ -173,6 +175,9 @@ var app = new Vue({
         },
         print(){
             window.print()
+        },
+        setTheme(name){
+            this.mainClass = name
         }
     }
 })
