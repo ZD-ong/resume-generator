@@ -31,7 +31,9 @@ button {
 div[v-cloak] {
     display: none;
 }
-
+.button {
+    padding: 3px 10px;
+}
 
 
 .page > aside {
@@ -69,7 +71,9 @@ div[v-cloak] {
     top: 0;
     right: 0;
 }
-
-.button {
-    padding: 3px 10px;
+.exitPreview {
+    position: fixed;
+    left: 20px;
+    top: 20px;
 }
+

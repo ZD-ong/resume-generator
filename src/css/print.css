@@ -1,0 +1,12 @@
+.page {
+    padding: 30px;
+}
+.page > aside {
+    display: none;
+}
+.add {
+    display: none;
+}
+.remove {
+    display: none;
+}

@@ -170,6 +170,9 @@ var app = new Vue({
         removeProject(index){
             // 删除 projects[index]
             this.resume.projects.splice(index, 1)
+        },
+        print(){
+            window.print()
         }
     }
 })
