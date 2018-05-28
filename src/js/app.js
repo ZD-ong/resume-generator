@@ -52,6 +52,7 @@ var app = new Vue({
         onShare(){
             if(this.hasLogin()){
                 this.shareVisible = true
+                
             }else {
                 alert('请登录！')
             }
